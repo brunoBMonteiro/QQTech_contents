@@ -2,41 +2,41 @@ document.addEventListener('DOMContentLoaded', function() {
   const form = document.getElementById('wine-form');
   const addButton = document.getElementById('add-button');
   const totalElement = document.getElementById('total');
-  const tintoElement = document.getElementById('percentage-tinto');
-  const brancoElement = document.getElementById('percentage-branco');
+  const redElement = document.getElementById('percentage-red');
+  const whiteElement = document.getElementById('percentage-white');
   const roseElement = document.getElementById('percentage-rose');
   const resultsDiv = document.getElementById('results');
 
-  let totalVinhos = 0;
-  let totalTinto = 0;
-  let totalBranco = 0;
-  let totalRose = 0;
+  let wineTotal = 0;
+  let redTotal = 0;
+  let whiteTotal = 0;
+  let roseTotal = 0;
 
   addButton.addEventListener('click', function() {
     const wineType = document.getElementById('wine-type').value;
     const wineQuantity = parseInt(document.getElementById('wine-quantity').value);
 
-    totalVinhos += wineQuantity;
+    wineTotal += wineQuantity;
 
     if (wineType === 'T') {
-      totalTinto += wineQuantity;
+      redTotal += wineQuantity;
     } else if (wineType === 'B') {
-      totalBranco += wineQuantity;
+      whiteTotal += wineQuantity;
     } else if (wineType === 'R') {
-      totalRose += wineQuantity;
+      roseTotal += wineQuantity;
     }
 
     updateResults();
   });
 
   function updateResults() {
-    const porcentagemTinto = calcularPorcentagem(totalTinto, totalVinhos);
-    const porcentagemBranco = calcularPorcentagem(totalBranco, totalVinhos);
-    const porcentagemRose = calcularPorcentagem(totalRose, totalVinhos);
+    const porcentagemTinto = calcularPorcentagem(redTotal, wineTotal);
+    const porcentagemBranco = calcularPorcentagem(whiteTotal, wineTotal);
+    const porcentagemRose = calcularPorcentagem(roseTotal, wineTotal);
 
-    totalElement.textContent = `Total de vinhos: ${totalVinhos}`;
-    tintoElement.textContent = `Porcentagem de vinhos tintos: ${porcentagemTinto.toFixed(2)}%`;
-    brancoElement.textContent = `Porcentagem de vinhos brancos: ${porcentagemBranco.toFixed(2)}%`;
+    totalElement.textContent = `Total de vinhos: ${wineTotal}`;
+    redElement.textContent = `Porcentagem de vinhos tintos: ${porcentagemTinto.toFixed(2)}%`;
+    whiteElement.textContent = `Porcentagem de vinhos brancos: ${porcentagemBranco.toFixed(2)}%`;
     roseElement.textContent = `Porcentagem de vinhos rose: ${porcentagemRose.toFixed(2)}%`;
 
     resultsDiv.style.display = 'block';

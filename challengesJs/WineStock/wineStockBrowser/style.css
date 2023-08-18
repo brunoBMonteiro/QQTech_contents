@@ -1,47 +1,66 @@
 body {
-    font-family: Arial, sans-serif;
-  }
-  
-  .container {
-    max-width: 400px;
-    margin: 0 auto;
-    padding: 20px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-  }
-  
-  form {
-    margin-bottom: 20px;
-  }
-  
-  label {
-    display: block;
-    margin-bottom: 5px;
-  }
-  
-  input[type="number"] {
-    width: 100%;
-    padding: 5px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-  }
-  
-  button {
-    background-color: #007bff;
-    color: #fff;
-    border: none;
-    padding: 8px 15px;
-    border-radius: 3px;
-    cursor: pointer;
-  }
-  
-  button:hover {
-    background-color: #0056b3;
-  }
-  
-  #results {
-    display: none;
-    margin-top: 20px;
-  }
-  
+  font-family: Arial, sans-serif;
+  width: 100vw;
+  height: 100vh;
+  background: #6C7A89;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+}
+
+.background-image {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: url("https://img.freepik.com/fotos-gratis/barris-de-vinho-de-madeira-armazenados-em-uma-vinicola-no-processo-de-fermentacao_657883-417.jpg?w=740&t=st=1692368213~exp=1692368813~hmac=aac64a04d9bfd08b5f8e01506d52ae24ba123342762fe3d6c6707b4f9bcd7694") center center no-repeat;
+  background-size: cover;
+  filter: blur(1px);
+  z-index: -1;
+}
+
+.container {
+  max-width: 400px;
+  margin: 0 auto;
+  padding: 20px;
+  border: 1px solid #9e9797;
+  border-radius: 5px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  background: rgba(165, 161, 161, 0.8);
+  color: #000;
+}
+
+label {
+  display: block;
+  margin-bottom: 5px;
+}
+
+input[type="number"] {
+  width: 100%;
+  padding: 5px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+button {
+  background-color: #b84623;
+  color: #fff;
+  border: none;
+  padding: 8px 15px;
+  border-radius: 3px;
+  cursor: pointer;
+  display: block;
+  margin: 10px auto 0;
+}
+
+button:hover {
+  background-color: #a54327;
+}
+
+#results {
+  display: none;
+  margin-top: 20px;
+}
