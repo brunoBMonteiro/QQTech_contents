@@ -1,6 +1,7 @@
 document.addEventListener('DOMContentLoaded', function() {
   const form = document.getElementById('wine-form');
   const addButton = document.getElementById('add-button');
+  const finishButton = document.getElementById('finish-button');
   const totalElement = document.getElementById('total');
   const redElement = document.getElementById('percentage-red');
   const whiteElement = document.getElementById('percentage-white');
@@ -27,6 +28,10 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     updateResults();
+  });
+
+  finishButton.addEventListener('click', function() { 
+    alert('Você finalizou o levantamento de estoque de vinhos.');
   });
 
   function updateResults() {

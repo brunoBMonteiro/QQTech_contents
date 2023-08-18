@@ -28,8 +28,8 @@ body {
   padding: 20px;
   border: 1px solid #9e9797;
   border-radius: 5px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-  background: rgba(165, 161, 161, 0.8);
+  box-shadow: 0 0 10px rgba(249, 249, 252, 0.1);
+  background: rgba(165, 160, 160, 0.8);
   color: #000;
 }
 
@@ -45,22 +45,37 @@ input[type="number"] {
   border-radius: 5px;
 }
 
-button {
+.button-container {
+  text-align: center; /* Centraliza os botões */
+}
+
+button#add-button,
+button#finish-button {
   background-color: #b84623;
   color: #fff;
   border: none;
   padding: 8px 15px;
   border-radius: 3px;
   cursor: pointer;
-  display: block;
-  margin: 10px auto 0;
+  display: inline-block;
+  margin: 10px 5px 0; /* Adiciona espaçamento entre os botões */
 }
 
-button:hover {
+button#add-button:hover,
+button#finish-button:hover {
   background-color: #a54327;
 }
 
 #results {
   display: none;
   margin-top: 20px;
+  text-align: center;
+}
+
+#results h2 {
+  margin-bottom: 10px;
+}
+
+#results p {
+  text-align: left;
 }
