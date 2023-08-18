@@ -1,0 +1,27 @@
+import java.util.Scanner;
+
+public class VacationCalculator {
+    public static void main(String[] args) {
+        Scanner input = new Scanner(System.in);
+        System.out.println("=== Vacation Calculator ===");
+
+        System.out.print("Digite o salário do funcionário: ");
+        double salary = input.nextDouble();
+
+        System.out.println("Digite a quantidade de meses trabalhados somente numeros inteiros de meses");
+        System.out.print("Digite a quantidade de meses trabalhados: ");
+        int monthsWorked = input.nextInt();
+
+        double vacationValue = calculateVacationValue(salary, monthsWorked);
+
+        System.out.printf("===Vacation value %.2f===", vacationValue);
+
+        input.close();
+    }
+
+    private static double calculateVacationValue(double salary, int monthsWorked) {
+        if (monthsWorked > 12) return salary * monthsWorked / 12 + (salary * monthsWorked / 12) / 3;
+
+        else System.out.println("O funcionário não tem direito a valor de férias");
+        return 0;
+    }

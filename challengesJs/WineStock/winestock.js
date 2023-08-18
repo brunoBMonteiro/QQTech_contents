@@ -1,0 +1,70 @@
+/*
+Construa uma solução que permita fazer um levantamento do estoque 
+de vinhos de uma adega, tendo como dados de entrada tipos de vinho, 
+sendo: 'T' para tinto, 'B' para branco e 'R' para rose. 
+Especifique a porcentagem de cada tipo sobre o total geral de vinhos; 
+a quantidade de vinhos é desconhecida, utilize como finalizador 'F' de fim.
+*/
+
+// variaveis de armazenamento para vinhos e totais
+// calcular a porcentagem
+// condicionais
+// F finalizar
+// exibir resultados
+
+const readline = require('readline');
+
+const rl = readline.createInterface({
+  input: process.stdin,
+  output: process.stdout
+});
+
+console.log('==== Bem vindo ao seu estoque de vinho ====');
+
+let wineTotal = 0;
+let totalRedWine = 0;
+let totalWineWhite = 0;
+let totalWineRose = 0;
+
+function calculatePercentage(value, total) {
+  return (value / total) * 100;
+}
+
+function collectData() {
+  rl.question("Informe o tipo de vinho (T para tinto, B para branco, R para rose) ou F para finalizar: ", function(type) {
+    if (type === 'F') {
+      showResults();
+      rl.close();
+      return;
+    }
+
+    rl.question("Informe a quantidade de garrafas: ", function(quantity) {
+      quantity = parseInt(quantity);
+
+      wineTotal += quantity;
+
+      if (type === 'T') {
+        totalRedWine += quantity;
+      } else if (type === 'B') {
+        totalWineWhite += quantity;
+      } else if (type === 'R') {
+        totalWineRose += quantity;
+      }
+
+      collectData();
+    });
+  });
+}
+
+function showResults() {
+  const percentageRed = calculatePercentage(totalRedWine, wineTotal);
+  const percentageWhite = calculatePercentage(totalWineWhite, wineTotal);
+  const percentageRose = calculatePercentage(totalWineRose, wineTotal);
+
+  console.log(`Total de vinhos: ${wineTotal}`);
+  console.log(`Porcentagem de vinhos tintos: ${percentageRed.toFixed(2)}%`);
+  console.log(`Porcentagem de vinhos brancos: ${percentageWhite.toFixed(2)}%`);
+  console.log(`Porcentagem de vinhos rose: ${percentageRose.toFixed(2)}%`);
+}
+
+collectData();

@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Levantamento de Estoque de Vinhos</title>
+    <link rel="stylesheet" href="./style.css">
+</head>
+
+<body>
+    <div class="container">
+        <h1>Estoque de Vinhos</h1>
+        <form id="wine-form">
+            <label for="wine-type">Tipo de vinho:</label>
+            <select id="wine-type" name="wine-type">
+                <option value="T">Tinto</option>
+                <option value="B">Branco</option>
+                <option value="R">Rose</option>
+            </select>
+            <br>
+            <label for="wine-quantity">Quantidade de garrafas:</label>
+            <input type="number" id="wine-quantity" name="wine-quantity">
+            <br>
+            <button type="button" id="add-button">Adicionar</button>
+        </form>
+
+        <div id="results">
+            <h2>Resultados</h2>
+            <p id="total"></p>
+            <p id="percentage-tinto"></p>
+            <p id="percentage-branco"></p>
+            <p id="percentage-rose"></p>
+        </div>
+    </div>
+    <script src="./script.js"></script>
+</body>
+
+</html>
