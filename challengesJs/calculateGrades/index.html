@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="styles.css">
+    <title>Calculadora de Média</title>
+</head>
+<body>
+    <div class="background"></div>
+    <div class="center-container">
+        <h1>Calculadora de Média</h1>
+        <label for="name">Nome do Aluno:</label>
+        <input type="text" id="name" placeholder="Nome do aluno" required>
+        <select id="options">
+            <option value="" disabled selected>Selecione a quantia notas</option>
+            <option value="2">Duas notas</option>
+            <option value="3">Três notas</option>
+            <option value="4">Quatro notas</option>
+        </select>
+        <div id="noteInputs">
+            <!-- Nota inputs serão adicionados aqui dinamicamente -->
+        </div>
+        <button id="calculateButton">Calcular Média</button>
+        <button id="clearButton">Limpar</button>
+        <p id="result"></p>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>

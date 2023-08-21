@@ -9,7 +9,7 @@
 </head>
 
 <body>
-    <div class="background-image"></div>
+    <div class="background-image"></div> <!-- Adicionei a div para a imagem de fundo -->
     <div class="container">
         <h1>Estoque de Vinhos</h1>
         <form id="wine-form">
