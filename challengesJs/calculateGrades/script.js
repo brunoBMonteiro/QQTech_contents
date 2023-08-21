@@ -30,7 +30,15 @@ document.addEventListener("DOMContentLoaded", function () {
 
     const average = total / numNotes;
     const name = document.getElementById("name").value;
-    resultDisplay.textContent = `${name}: média: ${average.toFixed(2)}`;
+
+    let status;
+    if (average >= 6) {
+      status = "Aprovado";
+    } else {
+      status = "Reprovado";
+    }
+
+    resultDisplay.textContent = `${name}: média: ${average.toFixed(2)} - ${status}`;
   });
 
   clearButton.addEventListener("click", function () {
