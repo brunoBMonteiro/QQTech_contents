@@ -4,13 +4,16 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="styles.css">
-    <title>Loja</title>
+    <title>Quero Quero</title>
 </head>
 <body>
     <div class="container">
         <button onclick="showForm('cliente')">Cadastrar Cliente</button>
         <button onclick="showForm('vendedor')">Cadastrar Vendedor</button>
         <button onclick="showForm('produto')">Cadastrar Produto</button>
+        <button onclick="showClientsList()">Ver Clientes</button>
+        <button onclick="showSellersList()">Ver Vendedores</button>
+        <button onclick="showProductsList()">Ver Produtos</button>
     </div>
 
     <div class="form-container" id="form-container">
