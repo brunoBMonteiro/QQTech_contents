@@ -1,0 +1,163 @@
+body {
+    font-family: Arial, sans-serif;
+    width: 100vw;
+    height: 100vh;
+    background: #6C7A89;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+  }
+
+.background-image {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: url("https://img.freepik.com/fotos-gratis/postura-plana-de-varias-ferramentas-tecnicas-isoladas-no-fundo-branco_53876-138096.jpg?w=740&t=st=1692800675~exp=1692801275~hmac=51a5fcc5f45defca7a0719bea59a316297f6d43e8576c969479182935a27123c") center center no-repeat;
+    background-size: cover;
+    filter: blur(1px);
+    z-index: -1;
+  }
+
+  .container {
+    max-width: initial;
+    margin: 0 auto;
+    padding: 20px;
+    border: 1px solid #9e9797;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(249, 249, 252, 0.1);
+    background: rgba(165, 160, 160, 0.8);
+    color: #000;
+    position: fixed; 
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 1;
+    width: calc(100% - 40px);
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.header {
+    background-color: rgba(165, 160, 160, 0.8);
+    padding: 10px 0;
+    width: 100%;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 2;
+}
+
+.container button {
+    background-color: #8cd676;
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    cursor: pointer;
+    border-radius: 3px;
+    font-size: 14px;
+    transition: background-color 0.3s ease;
+    margin: 0 5px;
+    display: inline-block; /* Impede empilhamento em telas pequenas */
+}
+
+.container button:not(:last-child) {
+    margin-right: 10px; /* Espaçamento entre os botões */
+}
+
+.container button:hover {
+    background-color: #445335;
+}
+
+.form-container {
+    display: none;
+    background-color: #fff;
+    border-radius: 5px;
+    padding: 20px;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+    margin-top: 20px;
+    width: 300px;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 1;
+    text-align: center;
+}
+
+.form-container input,
+.form-container select,
+.form-container button {
+    margin-bottom: 10px;
+    width: 100%;
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+    box-sizing: border-box; /* Evita que o padding afete a largura total */
+}
+
+.form-container button {
+    background-color: #8cd676;
+    color: #fff;
+    border: none;
+    cursor: pointer;
+    border-radius: 3px;
+    font-size: 14px;
+    transition: background-color 0.3s ease;
+    width: auto; /* Para que o botão tenha a largura do conteúdo */
+    padding: 8px 20px; /* Ajuste do espaçamento interno do botão */
+}
+
+.form-container button:hover {
+    background-color: #445335;
+}
+
+
+.result-container {
+    margin-top: 20px;
+    text-align: center;
+    position: fixed;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: calc(100% - 40px);
+    z-index: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.result-container {
+    margin-top: 20px;
+    text-align: center;
+}
+
+.result-container div {
+    background-color: #fff;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    padding: 10px;
+    margin: 10px 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.result-container div button {
+    background-color: #ff6961;
+    color: white;
+    border: none;
+    border-radius: 3px;
+    padding: 5px 10px;
+    cursor: pointer;
+}
+
+.result-container div button:hover {
+    background-color: #e04036;
+}
+

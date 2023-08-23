@@ -2,7 +2,6 @@ let clients = [];
 let sellers = [];
 let products = [];
 
-
 function showForm(formType) {
     const formContainer = document.getElementById('form-container');
     const resultContainer = document.getElementById('result');
@@ -25,7 +24,6 @@ function showForm(formType) {
                 <button onclick="addClient()">Cadastrar</button>
             `;
             break;
-
         case 'vendedor':
             formHTML = `
                 <h2>Cadastro de Vendedor</h2>
@@ -34,7 +32,6 @@ function showForm(formType) {
                 <button onclick="addSeller()">Cadastrar</button>
             `;
             break;
-
         case 'produto':
             formHTML = `
                 <h2>Cadastro de Produto</h2>
@@ -72,7 +69,7 @@ function removeClient(index) {
     if (index >= 0 && index < clients.length) {
         clients.splice(index, 1);
         displayResult('Cliente removido com sucesso!');
-        showClients();
+        showClientsList();
     } else {
         displayResult('Índice de cliente inválido.');
     }
@@ -88,7 +85,7 @@ function showClientsList() {
     }
 
     let clientsHTML = '<h2>Clientes Cadastrados</h2>';
-    clients.forEach((client) => {
+    clients.forEach((client, index) => {
         clientsHTML += `
             <div>
                 <span>Nome: ${client.name}</span>
@@ -96,6 +93,7 @@ function showClientsList() {
                 <span>CPF: ${client.cpf}</span>
                 <span>Origem: ${client.origin}</span>
                 <span>Score: ${client.score}</span>
+                <button onclick="removeClient(${index})">Remover</button>
             </div>
         `;
     });
@@ -116,9 +114,86 @@ function addSeller() {
     console.log(sellers);
 }
 
-function addProduct() {
-    
+function removeSeller(index) {
+    if (index >= 0 && index < sellers.length) {
+        sellers.splice(index, 1);
+        displayResult('Vendedor removido com sucesso!');
+        showSellersList();
+    } else {
+        displayResult('Índice de vendedor inválido.');
+    }
+}
 
+function showSellersList() {
+    const resultContainer = document.getElementById('result');
+    resultContainer.innerHTML = '';
+
+    if (sellers.length === 0) {
+        resultContainer.innerHTML = '<p>Nenhum vendedor cadastrado ainda.</p>';
+        return;
+    }
+
+    let sellersHTML = '<h2>Vendedores Cadastrados</h2>';
+    sellers.forEach((seller, index) => {
+        sellersHTML += `
+            <div>
+                <span>Nome: ${seller.name}</span>
+                <span>Matrícula: ${seller.matricula}</span>
+                <button onclick="removeSeller(${index})">Remover</button>
+            </div>
+        `;
+    });
+
+    resultContainer.innerHTML = sellersHTML;
+}
+
+function addProduct() {
+    const name = document.getElementById('productName').value;
+    const value = parseFloat(document.getElementById('productValue').value);
+    const category = document.getElementById('productCategory').value;
+
+    products.push({
+        name: name,
+        value: value,
+        category: category
+    });
+
+    displayResult('Produto cadastrado com sucesso!');
+    console.log(products);
+}
+
+function removeProduct(index) {
+    if (index >= 0 && index < products.length) {
+        products.splice(index, 1);
+        displayResult('Produto removido com sucesso!');
+        showProductsList();
+    } else {
+        displayResult('Índice de produto inválido.');
+    }
+}
+
+function showProductsList() {
+    const resultContainer = document.getElementById('result');
+    resultContainer.innerHTML = '';
+
+    if (products.length === 0) {
+        resultContainer.innerHTML = '<p>Nenhum produto cadastrado ainda.</p>';
+        return;
+    }
+
+    let productsHTML = '<h2>Produtos Cadastrados</h2>';
+    products.forEach((product, index) => {
+        productsHTML += `
+            <div>
+                <span>Nome: ${product.name}</span>
+                <span>Valor: ${product.value}</span>
+                <span>Categoria: ${product.category}</span>
+                <button onclick="removeProduct(${index})">Remover</button>
+            </div>
+        `;
+    });
+
+    resultContainer.innerHTML = productsHTML;
 }
 
 function displayResult(message) {
