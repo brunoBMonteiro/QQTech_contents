@@ -43,6 +43,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
   clearButton.addEventListener("click", function () {
     noteInputsContainer.innerHTML = "";
+    // altera conteúdo de texto do elemento
     resultDisplay.textContent = "";
     document.getElementById("name").value = "";
     optionsSelect.selectedIndex = 0;
