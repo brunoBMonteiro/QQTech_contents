@@ -3,7 +3,8 @@ let sellers = [];
 let products = [];
 
 let clientsListVisible = false;
-
+let sellersListVisible = false;
+let productsListVisible = false;
 
 
 function showForm(formType) {
