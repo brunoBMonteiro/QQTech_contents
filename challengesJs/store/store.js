@@ -66,13 +66,17 @@ function addClient() {
         score: score
     });
 
+    cleanClientContent();
+
+    displayResult('Cliente cadastrado com sucesso!');
+}
+
+function cleanClientContent() {
     document.getElementById('clientName').value = '';
     document.getElementById('clientDate').value = '';
     document.getElementById('clientCPF').value = '';
     document.getElementById('clientOrigin').value = 'loja';
     document.getElementById('clientScore').value = '';
-
-    displayResult('Cliente cadastrado com sucesso!');
 }
 
 function removeClient(index) {
@@ -128,10 +132,14 @@ function addSeller() {
         matricula: matricula
     });
 
-    document.getElementById('sellerName').value = '';
-    document.getElementById('sellerMatricula').value = '';
+    cleanSellerContent();
 
     displayResult('Vendedor cadastrado com sucesso!');
+}
+
+function cleanSellerContent() {
+    document.getElementById('sellerName').value = '';
+    document.getElementById('sellerMatricula').value = '';
 }
 
 function removeSeller(index) {
@@ -185,11 +193,16 @@ function addProduct() {
         category: category
     });
 
+    cleanProductContent();
+
+    displayResult('Produto cadastrado com sucesso!');
+}
+
+function cleanProductContent() {
     document.getElementById('productName').value = '';
     document.getElementById('productValue').value = '';
     document.getElementById('productCategory').value = '';
 
-    displayResult('Produto cadastrado com sucesso!');
 }
 
 function removeProduct(index) {
