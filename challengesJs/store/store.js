@@ -122,7 +122,6 @@ function showClientsList() {
     }
 }
 
-
 function addSeller() {
     const name = document.getElementById('sellerName').value;
     const matricula = document.getElementById('sellerMatricula').value;
