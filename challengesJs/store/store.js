@@ -2,6 +2,10 @@ let clients = [];
 let sellers = [];
 let products = [];
 
+let clientsListVisible = false;
+
+
+
 function showForm(formType) {
     const formContainer = document.getElementById('form-container');
     const resultContainer = document.getElementById('result');
@@ -14,7 +18,7 @@ function showForm(formType) {
             formHTML = `
                 <h2>Cadastro de Cliente</h2>
                 <input type="text" id="clientName" placeholder="Nome completo"><br>
-                <input type="date" id="clientDob" placeholder="Data de nascimento"><br>
+                <input type="date" id="clientDate" placeholder="Data de nascimento"><br>
                 <input type="text" id="clientCPF" placeholder="CPF"><br>
                 <select id="clientOrigin">
                     <option value="loja">Loja</option>
@@ -48,21 +52,26 @@ function showForm(formType) {
 
 function addClient() {
     const name = document.getElementById('clientName').value;
-    const dob = document.getElementById('clientDob').value;
+    const date = document.getElementById('clientDate').value;
     const cpf = document.getElementById('clientCPF').value;
     const origin = document.getElementById('clientOrigin').value;
     const score = parseFloat(document.getElementById('clientScore').value);
 
     clients.push({
         name: name,
-        dob: dob,
+        date: date,
         cpf: cpf,
         origin: origin,
         score: score
     });
 
+    document.getElementById('clientName').value = '';
+    document.getElementById('clientDate').value = '';
+    document.getElementById('clientCPF').value = '';
+    document.getElementById('clientOrigin').value = 'loja';
+    document.getElementById('clientScore').value = '';
+
     displayResult('Cliente cadastrado com sucesso!');
-    console.log(clients);
 }
 
 function removeClient(index) {
@@ -77,29 +86,37 @@ function removeClient(index) {
 
 function showClientsList() {
     const resultContainer = document.getElementById('result');
-    resultContainer.innerHTML = '';
+    
+    if (!clientsListVisible) {
+        resultContainer.innerHTML = '';
 
-    if (clients.length === 0) {
-        resultContainer.innerHTML = '<p>Nenhum cliente cadastrado ainda.</p>';
-        return;
+        if (clients.length === 0) {
+            resultContainer.innerHTML = '<p>Nenhum cliente cadastrado ainda.</p>';
+        } else {
+            let clientsHTML = '<h2>Clientes Cadastrados</h2>';
+            clients.forEach((client, index) => {
+                clientsHTML += `
+                    <div>
+                        <span>Nome: ${client.name}</span>
+                        <span>Data de Nascimento: ${client.date}</span>
+                        <span>CPF: ${client.cpf}</span>
+                        <span>Origem: ${client.origin}</span>
+                        <span>Score: ${client.score}</span>
+                        <button onclick="removeClient(${index})">Remover</button>
+                    </div>
+                `;
+            });
+
+            resultContainer.innerHTML = clientsHTML;
+        }
+
+        clientsListVisible = true;
+    } else {
+        resultContainer.innerHTML = '';
+        clientsListVisible = false;
     }
-
-    let clientsHTML = '<h2>Clientes Cadastrados</h2>';
-    clients.forEach((client, index) => {
-        clientsHTML += `
-            <div>
-                <span>Nome: ${client.name}</span>
-                <span>Data de Nascimento: ${client.dob}</span>
-                <span>CPF: ${client.cpf}</span>
-                <span>Origem: ${client.origin}</span>
-                <span>Score: ${client.score}</span>
-                <button onclick="removeClient(${index})">Remover</button>
-            </div>
-        `;
-    });
-
-    resultContainer.innerHTML = clientsHTML;
 }
+
 
 function addSeller() {
     const name = document.getElementById('sellerName').value;
@@ -110,8 +127,10 @@ function addSeller() {
         matricula: matricula
     });
 
+    document.getElementById('sellerName').value = '';
+    document.getElementById('sellerMatricula').value = '';
+
     displayResult('Vendedor cadastrado com sucesso!');
-    console.log(sellers);
 }
 
 function removeSeller(index) {
@@ -126,25 +145,32 @@ function removeSeller(index) {
 
 function showSellersList() {
     const resultContainer = document.getElementById('result');
-    resultContainer.innerHTML = '';
+    
+    if (!sellersListVisible) {
+        resultContainer.innerHTML = '';
 
-    if (sellers.length === 0) {
-        resultContainer.innerHTML = '<p>Nenhum vendedor cadastrado ainda.</p>';
-        return;
+        if (sellers.length === 0) {
+            resultContainer.innerHTML = '<p>Nenhum vendedor cadastrado ainda.</p>';
+        } else {
+            let sellersHTML = '<h2>Vendedores Cadastrados</h2>';
+            sellers.forEach((seller, index) => {
+                sellersHTML += `
+                    <div>
+                        <span>Nome: ${seller.name}</span>
+                        <span>Matrícula: ${seller.matricula}</span>
+                        <button onclick="removeSeller(${index})">Remover</button>
+                    </div>
+                `;
+            });
+
+            resultContainer.innerHTML = sellersHTML;
+        }
+
+        sellersListVisible = true;
+    } else {
+        resultContainer.innerHTML = '';
+        sellersListVisible = false;
     }
-
-    let sellersHTML = '<h2>Vendedores Cadastrados</h2>';
-    sellers.forEach((seller, index) => {
-        sellersHTML += `
-            <div>
-                <span>Nome: ${seller.name}</span>
-                <span>Matrícula: ${seller.matricula}</span>
-                <button onclick="removeSeller(${index})">Remover</button>
-            </div>
-        `;
-    });
-
-    resultContainer.innerHTML = sellersHTML;
 }
 
 function addProduct() {
@@ -158,8 +184,11 @@ function addProduct() {
         category: category
     });
 
+    document.getElementById('productName').value = '';
+    document.getElementById('productValue').value = '';
+    document.getElementById('productCategory').value = '';
+
     displayResult('Produto cadastrado com sucesso!');
-    console.log(products);
 }
 
 function removeProduct(index) {
@@ -174,26 +203,59 @@ function removeProduct(index) {
 
 function showProductsList() {
     const resultContainer = document.getElementById('result');
+    
+    if (!productsListVisible) {
+        resultContainer.innerHTML = '';
+
+        if (products.length === 0) {
+            resultContainer.innerHTML = '<p>Nenhum produto cadastrado ainda.</p>';
+        } else {
+            let productsHTML = '<h2>Produtos Cadastrados</h2>';
+            products.forEach((product, index) => {
+                productsHTML += `
+                    <div>
+                        <span>Nome: ${product.name}</span>
+                        <span>Valor: ${product.value}</span>
+                        <span>Categoria: ${product.category}</span>
+                        <button onclick="removeProduct(${index})">Remover</button>
+                    </div>
+                `;
+            });
+
+            resultContainer.innerHTML = productsHTML;
+        }
+
+        productsListVisible = true;
+    } else {
+        resultContainer.innerHTML = '';
+        productsListVisible = false;
+    }
+}
+
+function queryProducts() {
+    const categoryQuery = document.getElementById('categoryQuery').value.toLowerCase();
+    const filteredProducts = products.filter(product => product.category.toLowerCase().includes(categoryQuery));
+
+    const resultContainer = document.getElementById('result');
     resultContainer.innerHTML = '';
 
-    if (products.length === 0) {
-        resultContainer.innerHTML = '<p>Nenhum produto cadastrado ainda.</p>';
-        return;
+    if (filteredProducts.length === 0) {
+        displayResult('Nenhum produto encontrado na categoria.');
+    } else {
+        resultContainer.innerHTML = '<h2>Produtos encontrados na categoria:</h2>';
+
+        filteredProducts.forEach(product => {
+            resultContainer.innerHTML += `
+                <div>
+                    <span>Nome: ${product.name}</span>
+                    <span>Valor: ${product.value}</span>
+                    <span>Categoria: ${product.category}</span>
+                </div>
+            `;
+        });
     }
 
-    let productsHTML = '<h2>Produtos Cadastrados</h2>';
-    products.forEach((product, index) => {
-        productsHTML += `
-            <div>
-                <span>Nome: ${product.name}</span>
-                <span>Valor: ${product.value}</span>
-                <span>Categoria: ${product.category}</span>
-                <button onclick="removeProduct(${index})">Remover</button>
-            </div>
-        `;
-    });
-
-    resultContainer.innerHTML = productsHTML;
+    document.getElementById('categoryQuery').value = '';
 }
 
 function displayResult(message) {
