@@ -63,11 +63,11 @@ body {
     font-size: 14px;
     transition: background-color 0.3s ease;
     margin: 0 5px;
-    display: inline-block; /* Impede empilhamento em telas pequenas */
+    display: inline-block;
 }
 
 .container button:not(:last-child) {
-    margin-right: 10px; /* Espaçamento entre os botões */
+    margin-right: 10px; 
 }
 
 .container button:hover {
@@ -98,7 +98,7 @@ body {
     padding: 8px;
     border: 1px solid #ccc;
     border-radius: 3px;
-    box-sizing: border-box; /* Evita que o padding afete a largura total */
+    box-sizing: border-box; 
 }
 
 .form-container button {
@@ -109,8 +109,8 @@ body {
     border-radius: 3px;
     font-size: 14px;
     transition: background-color 0.3s ease;
-    width: auto; /* Para que o botão tenha a largura do conteúdo */
-    padding: 8px 20px; /* Ajuste do espaçamento interno do botão */
+    width: auto; 
+    padding: 8px 20px; 
 }
 
 .form-container button:hover {
