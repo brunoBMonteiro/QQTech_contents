@@ -91,7 +91,7 @@ function removeClient(index) {
 
 function showClientsList() {
     const resultContainer = document.getElementById('result');
-    
+
     if (!clientsListVisible) {
         resultContainer.innerHTML = '';
 
@@ -134,6 +134,7 @@ function addSeller() {
     cleanSellerContent();
 
     displayResult('Vendedor cadastrado com sucesso!');
+    showSellersList();
 }
 
 function cleanSellerContent() {
@@ -153,7 +154,7 @@ function removeSeller(index) {
 
 function showSellersList() {
     const resultContainer = document.getElementById('result');
-    
+
     if (!sellersListVisible) {
         resultContainer.innerHTML = '';
 
@@ -163,11 +164,12 @@ function showSellersList() {
             let sellersHTML = '<h2>Vendedores Cadastrados</h2>';
             sellers.forEach((seller, index) => {
                 sellersHTML += `
-                    <div>
-                        <span>Nome: ${seller.name}</span>
-                        <span>Matrícula: ${seller.matricula}</span>
-                        <button onclick="removeSeller(${index})">Remover</button>
-                    </div>
+                <div>
+                    <span>Nome: ${seller.name}</span>
+                    <span>Matrícula: ${seller.matricula}</span>
+                    <button onclick="editSeller(${index})">Editar</button>
+                    <button onclick="removeSeller(${index})">Remover</button>
+                </div>
                 `;
             });
 
@@ -178,6 +180,32 @@ function showSellersList() {
     } else {
         resultContainer.innerHTML = '';
         sellersListVisible = false;
+    }
+}
+
+function editSeller(index) {
+    const editedName = prompt("Novo nome do vendedor:", sellers[index].name);
+    const editedMatricula = prompt("Nova matrícula do vendedor:", sellers[index].matricula);
+
+    if (editedName !== null && editedMatricula !== null) {
+        sellers[index].name = editedName;
+        sellers[index].matricula = editedMatricula;
+        displayResult('Vendedor editado com sucesso!');
+        showSellersList();
+    }
+}
+
+function querySellers() {
+    const matriculaQuery = prompt("Digite a matrícula do vendedor:");
+
+    if (matriculaQuery !== null) {
+        const foundSeller = sellers.find(seller => seller.matricula === matriculaQuery);
+
+        if (foundSeller) {
+            displayResult(`Vendedor encontrado: ${foundSeller.name}, Matrícula: ${foundSeller.matricula}`);
+        } else {
+            displayResult(`Vendedor com matrícula ${matriculaQuery} não encontrado.`);
+        }
     }
 }
 
@@ -216,7 +244,7 @@ function removeProduct(index) {
 
 function showProductsList() {
     const resultContainer = document.getElementById('result');
-    
+
     if (!productsListVisible) {
         resultContainer.innerHTML = '';
 
