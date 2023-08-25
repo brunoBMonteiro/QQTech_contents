@@ -195,19 +195,27 @@ function editSeller(index) {
     }
 }
 
-function querySellers() {
-    const matriculaQuery = prompt("Digite a matrícula do vendedor:");
+function querySellersByMatricula() {
+    const matriculaQuery = document.getElementById('matriculaQuery').value;
+    const matriculaResultElement = document.getElementById('matriculaResult');
+    
+    const filteredSellers = sellers.filter(seller => seller.matricula === matriculaQuery);
 
-    if (matriculaQuery !== null) {
-        const foundSeller = sellers.find(seller => seller.matricula === matriculaQuery);
+    matriculaResultElement.innerHTML = '';
 
-        if (foundSeller) {
-            displayResult(`Vendedor encontrado: ${foundSeller.name}, Matrícula: ${foundSeller.matricula}`);
-        } else {
-            displayResult(`Vendedor com matrícula ${matriculaQuery} não encontrado.`);
-        }
-    }
+    filteredSellers.forEach(seller => {
+        const sellerInfo = document.createElement('div');
+        sellerInfo.className = 'vendedor-info';
+        sellerInfo.innerHTML = `
+            <p>Nome: ${seller.name}</p>
+            <p>Matrícula: ${seller.matricula}</p>
+        `;
+        matriculaResultElement.appendChild(sellerInfo);
+    });
+
+    document.getElementById('matriculaQuery').value = '';
 }
+
 
 function addProduct() {
     const name = document.getElementById('productName').value;
