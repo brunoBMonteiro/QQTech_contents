@@ -47,3 +47,35 @@ for i in range(10):
 
 # Forma 2
 my_dict = {str(i):i for i in range(10)}
+
+
+# Funções
+"""
+#definir função
+def nome_funcao(param):
+codigo
+#chamar função
+nome_funcao(param)
+"""
+
+def bom_dia(nome):
+    print(f'Bom dia, {nome}!')
+
+bom_dia('Bruno')
+
+#definir função
+def bom_dia(nome1, nome2):
+    print(f'Bom dia, {nome1} e {nome2}!')
+
+#chamar função
+bom_dia('João', 'Maria')
+
+bom_dia('Maria', 'João')
+
+def soma(num1, num2):
+    resultado_soma = num1 + num2
+    return resultado_soma
+
+def bom_dia(nome):
+    return f'Bom dia, {nome}!'
+
