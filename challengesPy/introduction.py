@@ -45,3 +45,47 @@ print(nova_string2)
 string_base3 = "Olá Maria"
 nova_string3 = string_base3.replace("Maria", "Ana")
 print(nova_string3)
+
+# Listas
+
+# Criar lista
+my_list2 = []
+my_list = [1,2,3]
+names = ['Bruno', 'Maria', 'pedro', 'Ana']
+print(my_list)
+print(names)
+
+# Remover elementos
+my_list.remove(1)
+print(my_list)
+
+names.remove('Maria')
+print(names)
+
+# Adiciona elementos
+names.append('Ana')
+print(names)
+
+# ver numero de elementos da lista
+print(len(names))
+
+# acessar elementos individuais pelo indice, obs se usar -1 acessamos 
+# o fim da lista -2 e assim por diante
+my_list3 = [1,2,3,4]
+print(my_list3[0])
+
+# Tuples semelhantes a lista mas são imutáveis
+my_tuple = (1,2,3)
+
+# Acessar elementos individuais
+print(my_tuple[0])
+
+# Dicionários: são elementos que possuem chave e valor
+my_dict = {'nome': 'Bruno', 'idade': 25}
+print(my_dict['nome'])
+
+# Adicionando
+my_dict['cidade'] = 'Porto Alegre'
+# modificando
+my_dict['idade'] = 27
+print(my_dict)
