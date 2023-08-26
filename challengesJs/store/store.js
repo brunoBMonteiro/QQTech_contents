@@ -216,7 +216,6 @@ function querySellersByMatricula() {
     document.getElementById('matriculaQuery').value = '';
 }
 
-
 function addProduct() {
     const name = document.getElementById('productName').value;
     const value = parseFloat(document.getElementById('productValue').value);
