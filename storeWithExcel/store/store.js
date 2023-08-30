@@ -5,50 +5,60 @@ let products = [];
 let clientsListVisible = false;
 let sellersListVisible = false;
 let productsListVisible = false;
-
+let isFormVisible = false; 
 
 function showForm(formType) {
     const formContainer = document.getElementById('form-container');
     const resultContainer = document.getElementById('result');
-    formContainer.style.display = 'block';
-    resultContainer.innerHTML = '';
-
-    let formHTML = '';
-    switch (formType) {
-        case 'cliente':
-            formHTML = `
-                <h2>Cadastro de Cliente</h2>
-                <input type="text" id="clientName" placeholder="Nome completo"><br>
-                <input type="date" id="clientDate" placeholder="Data de nascimento"><br>
-                <input type="text" id="clientCPF" placeholder="CPF"><br>
-                <select id="clientOrigin">
-                    <option value="loja">Loja</option>
-                    <option value="site">Site</option>
-                </select><br>
-                <input type="number" id="clientScore" placeholder="Score"><br>
-                <button onclick="addClient()">Cadastrar</button>
-            `;
-            break;
-        case 'vendedor':
-            formHTML = `
-                <h2>Cadastro de Vendedor</h2>
-                <input type="text" id="sellerName" placeholder="Nome"><br>
-                <input type="text" id="sellerMatricula" placeholder="Matrícula"><br>
-                <button onclick="addSeller()">Cadastrar</button>
-            `;
-            break;
-        case 'produto':
-            formHTML = `
-                <h2>Cadastro de Produto</h2>
-                <input type="text" id="productName" placeholder="Nome"><br>
-                <input type="number" id="productValue" placeholder="Valor"><br>
-                <input type="text" id="productCategory" placeholder="Categoria"><br>
-                <button onclick="addProduct()">Cadastrar</button>
-            `;
-            break;
+    
+    if (!isFormVisible || formContainer.dataset.formType !== formType) {
+        formContainer.style.display = 'block';
+        resultContainer.innerHTML = '';
+        
+        let formHTML = '';
+        switch (formType) {
+            case 'cliente':
+                formHTML = `
+                    <h2>Cadastro de Cliente</h2>
+                    <input type="text" id="clientName" placeholder="Nome completo"><br>
+                    <input type="date" id="clientDate" placeholder="Data de nascimento"><br>
+                    <input type="text" id="clientCPF" placeholder="CPF"><br>
+                    <select id="clientOrigin">
+                        <option value="loja">Loja</option>
+                        <option value="site">Site</option>
+                    </select><br>
+                    <input type="number" id="clientScore" placeholder="Score"><br>
+                    <button onclick="addClient()">Cadastrar</button>
+                `;
+                break;
+            case 'vendedor':
+                formHTML = `
+                    <h2>Cadastro de Vendedor</h2>
+                    <input type="text" id="sellerName" placeholder="Nome"><br>
+                    <input type="text" id="sellerMatricula" placeholder="Matrícula"><br>
+                    <button onclick="addSeller()">Cadastrar</button>
+                `;
+                break;
+            case 'produto':
+                formHTML = `
+                    <h2>Cadastro de Produto</h2>
+                    <input type="text" id="productName" placeholder="Nome"><br>
+                    <input type="number" id="productValue" placeholder="Valor"><br>
+                    <input type="text" id="productCategory" placeholder="Categoria"><br>
+                    <button onclick="addProduct()">Cadastrar</button>
+                `;
+                break;
+        }
+        
+        formContainer.innerHTML = formHTML;
+        formContainer.dataset.formType = formType;
+        isFormVisible = true;
+    } else {
+        formContainer.style.display = 'none';
+        formContainer.innerHTML = '';
+        formContainer.dataset.formType = '';
+        isFormVisible = false;
     }
-
-    formContainer.innerHTML = formHTML;
 }
 
 function addClient() {
@@ -69,9 +79,6 @@ function addClient() {
     cleanClientContent();
 
     displayResult('Cliente cadastrado com sucesso!');
-    showClientsList();
-
-    populateClientsTable(clients);
 }
 
 function cleanClientContent() {
@@ -111,11 +118,10 @@ function showClientsList() {
                         <span>Origem: ${client.origin}</span>
                         <span>Score: ${client.score}</span>
                         <button onclick="removeClient(${index})">Remover</button>
+                        <button onclick="editClient(${index})">Editar</button>
                     </div>
                 `;
             });
-
-            clientsHTML += '<button onclick="generateXLSX()">Gerar XLSX</button>';
 
             resultContainer.innerHTML = clientsHTML;
         }
@@ -124,6 +130,24 @@ function showClientsList() {
     } else {
         resultContainer.innerHTML = '';
         clientsListVisible = false;
+    }
+}
+
+function editClient(index) {
+    const editedName = prompt("Novo nome do cliente:", clients[index].name);
+    const editedDate = prompt("Nova data de nascimento do cliente:", clients[index].date);
+    const editedCPF = prompt("Novo CPF do cliente:", clients[index].cpf);
+    const editedOrigin = prompt("Nova origem do cliente:", clients[index].origin);
+    const editedScore = parseFloat(prompt("Novo score do cliente:", clients[index].score));
+
+    if (editedName !== null && editedDate !== null && editedCPF !== null && editedOrigin !== null && !isNaN(editedScore)) {
+        clients[index].name = editedName;
+        clients[index].date = editedDate;
+        clients[index].cpf = editedCPF;
+        clients[index].origin = editedOrigin;
+        clients[index].score = editedScore;
+        displayResult('Cliente editado com sucesso!');
+        showClientsList();
     }
 }
 
@@ -158,36 +182,32 @@ function removeSeller(index) {
 }
 
 function showSellersList() {
-    const sellersTableContainer = document.getElementById('sellers-table-container');
-    const sellersTable = document.getElementById('sellers-table');
-    const tbody = sellersTable.querySelector('tbody');
+    const resultContainer = document.getElementById('result');
 
     if (!sellersListVisible) {
-        sellersTableContainer.style.display = 'block';
-        tbody.innerHTML = '';
+        resultContainer.innerHTML = '';
 
         if (sellers.length === 0) {
-            const emptyRow = document.createElement('tr');
-            emptyRow.innerHTML = '<td colspan="3">Nenhum vendedor cadastrado ainda.</td>';
-            tbody.appendChild(emptyRow);
+            resultContainer.innerHTML = '<p>Nenhum vendedor cadastrado ainda.</p>';
         } else {
+            let sellersHTML = '<h2>Vendedores Cadastrados</h2>';
             sellers.forEach((seller, index) => {
-                const row = document.createElement('tr');
-                row.innerHTML = `
-                    <td>${seller.name}</td>
-                    <td>${seller.matricula}</td>
-                    <td>
-                        <button onclick="editSeller(${index})">Editar</button>
-                        <button onclick="removeSeller(${index})">Remover</button>
-                    </td>
+                sellersHTML += `
+                <div>
+                    <span>Nome: ${seller.name}</span>
+                    <span>Matrícula: ${seller.matricula}</span>
+                    <button onclick="editSeller(${index})">Editar</button>
+                    <button onclick="removeSeller(${index})">Remover</button>
+                </div>
                 `;
-                tbody.appendChild(row);
             });
+
+            resultContainer.innerHTML = sellersHTML;
         }
 
         sellersListVisible = true;
     } else {
-        sellersTableContainer.style.display = 'none';
+        resultContainer.innerHTML = '';
         sellersListVisible = false;
     }
 }
@@ -207,7 +227,7 @@ function editSeller(index) {
 function querySellersByMatricula() {
     const matriculaQuery = document.getElementById('matriculaQuery').value;
     const matriculaResultElement = document.getElementById('matriculaResult');
-
+    
     const filteredSellers = sellers.filter(seller => seller.matricula === matriculaQuery);
 
     matriculaResultElement.innerHTML = '';
@@ -239,7 +259,6 @@ function addProduct() {
     cleanProductContent();
 
     displayResult('Produto cadastrado com sucesso!');
-    showProductsList();
 }
 
 function cleanProductContent() {
@@ -260,38 +279,48 @@ function removeProduct(index) {
 }
 
 function showProductsList() {
-    const productsTableContainer = document.getElementById('products-table-container');
-    const productsTable = document.getElementById('products-table');
-    const tbody = productsTable.querySelector('tbody');
+    const resultContainer = document.getElementById('result');
 
     if (!productsListVisible) {
-        productsTableContainer.style.display = 'block';
-        tbody.innerHTML = '';
+        resultContainer.innerHTML = '';
 
         if (products.length === 0) {
-            const emptyRow = document.createElement('tr');
-            emptyRow.innerHTML = '<td colspan="4">Nenhum produto cadastrado ainda.</td>';
-            tbody.appendChild(emptyRow);
+            resultContainer.innerHTML = '<p>Nenhum produto cadastrado ainda.</p>';
         } else {
+            let productsHTML = '<h2>Produtos Cadastrados</h2>';
             products.forEach((product, index) => {
-                const row = document.createElement('tr');
-                row.innerHTML = `
-                    <td>${product.name}</td>
-                    <td>${product.value}</td>
-                    <td>${product.category}</td>
-                    <td>
+                productsHTML += `
+                    <div>
+                        <span>Nome: ${product.name}</span>
+                        <span>Valor: ${product.value}</span>
+                        <span>Categoria: ${product.category}</span>
                         <button onclick="removeProduct(${index})">Remover</button>
                         <button onclick="editProduct(${index})">Editar</button>
-                    </td>
+                    </div>
                 `;
-                tbody.appendChild(row);
             });
+
+            resultContainer.innerHTML = productsHTML;
         }
 
         productsListVisible = true;
     } else {
-        productsTableContainer.style.display = 'none';
+        resultContainer.innerHTML = '';
         productsListVisible = false;
+    }
+}
+
+function editProduct(index) {
+    const editedName = prompt("Novo nome do produto:", products[index].name);
+    const editedValue = parseFloat(prompt("Novo valor do produto:", products[index].value));
+    const editedCategory = prompt("Nova categoria do produto:", products[index].category);
+
+    if (editedName !== null && !isNaN(editedValue) && editedCategory !== null) {
+        products[index].name = editedName;
+        products[index].value = editedValue;
+        products[index].category = editedCategory;
+        displayResult('Produto editado com sucesso!');
+        showProductsList();
     }
 }
 
@@ -319,111 +348,6 @@ function queryProducts() {
     }
 
     document.getElementById('categoryQuery').value = '';
-}
-
-function generateXLSX() {
-    const data = {
-        clients: clients,
-        sellers: sellers,
-        products: products
-    };
-
-    fetch('http://127.0.0.1:5000/generate_xlsx', {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(data)
-    })
-    .then(response => response.json())
-    .then(responseData => {
-        if (responseData.message === "XLSX file generated successfully") {
-            // File generated successfully, you can proceed with downloading or other actions
-            console.log(responseData.file_path); // Just to check the file path
-
-            // Call the download function or update the UI as needed
-        } else {
-            console.error('Error:', responseData.error);
-        }
-    })
-    .catch(error => {
-        console.error('Error:', error);
-    });
-}
-
-function downloadXLSX(dataType) {
-    fetch(`/download_file/${dataType}_Data.xlsx`, {
-        method: 'GET'
-    })
-    .then(response => {
-        if (response.ok) {
-            return response.blob();
-        }
-        throw new Error('Network response was not ok.');
-    })
-    .then(blob => {
-        const url = window.URL.createObjectURL(blob);
-        const a = document.createElement('a');
-        a.style.display = 'none';
-        a.href = url;
-        a.download = `${dataType}_Data.xlsx`;
-        document.body.appendChild(a);
-        a.click();
-        window.URL.revokeObjectURL(url);
-    })
-    .catch(error => {
-        console.error('Error:', error);
-    });
-}
-
-function populateClientsTable(clientsData) {
-    const tbody = document.querySelector('#clients-table tbody');
-    tbody.innerHTML = '';
-
-    clientsData.forEach(client => {
-        const row = document.createElement('tr');
-        row.innerHTML = `
-            <td>${client.name}</td>
-            <td>${client.date}</td>
-            <td>${client.cpf}</td>
-            <td>${client.origin}</td>
-            <td>${client.score}</td>
-            <td><button onclick="removeClient(${clients.indexOf(client)})">Remover</button></td>
-        `;
-        tbody.appendChild(row);
-    });
-}
-
-function populateSellersTable(sellersData) {
-    const tbody = document.querySelector('#sellers-table tbody');
-    tbody.innerHTML = '';
-
-    sellersData.forEach(seller => {
-        const row = document.createElement('tr');
-        row.innerHTML = `
-            <td>${seller.name}</td>
-            <td>${seller.matricula}</td>
-            <td><button onclick="editSeller(${sellers.indexOf(seller)})">Editar</button>
-                <button onclick="removeSeller(${sellers.indexOf(seller)})">Remover</button></td>
-        `;
-        tbody.appendChild(row);
-    });
-}
-
-function populateProductsTable(productsData) {
-    const tbody = document.querySelector('#products-table tbody');
-    tbody.innerHTML = '';
-
-    productsData.forEach(product => {
-        const row = document.createElement('tr');
-        row.innerHTML = `
-            <td>${product.name}</td>
-            <td>${product.value}</td>
-            <td>${product.category}</td>
-            <td><button onclick="removeProduct(${products.indexOf(product)})">Remover</button></td>
-        `;
-        tbody.appendChild(row);
-    });
 }
 
 function displayResult(message) {

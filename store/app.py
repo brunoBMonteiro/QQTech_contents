@@ -1,9 +1,11 @@
 import os
-from flask import Flask, request, send_file, jsonify
+from flask import Flask, request, send_file, jsonify, send_from_directory
+from flask_cors import CORS  # Importe o CORS
 import openpyxl
 from openpyxl.utils import get_column_letter
 
 app = Flask(__name__)
+CORS(app)  # Adicione o middleware do CORS ao aplicativo
 
 data = {
     "clients": [],
@@ -22,13 +24,15 @@ def add_data():
 @app.route('/generate_xlsx', methods=['POST'])
 def generate_xlsx():
     try:
-        data = request.get_json()
+        received_data = request.get_json()
 
-        clients = data['clients']
-        sellers = data['sellers']
-        products = data['products']
+        clients = received_data['clients']
+        sellers = received_data['sellers']
+        products = received_data['products']
 
         filename = 'data.xlsx'
+        file_path = os.path.join(os.path.abspath(os.path.dirname(__file__)), 'downloads', filename)
+
         workbook = openpyxl.Workbook()
         sheet = workbook.active
         sheet.title = 'Data'
@@ -52,12 +56,15 @@ def generate_xlsx():
             product_data = [product.get(header, '') for header in product_headers]
             sheet.append(product_data)
 
-        file_path = os.path.join('downloads', filename)
         workbook.save(file_path)
 
-        return send_file(file_path, as_attachment=True)
+        return jsonify({'message': f'XLSX file generated successfully', 'file_path': file_path})
     except Exception as e:
         return jsonify({'error': str(e)})
+
+@app.route('/download_file/<filename>', methods=['GET'])
+def download_file(filename):
+    return send_from_directory(os.path.join(os.path.abspath(os.path.dirname(__file__)), 'downloads'), filename, as_attachment=True)
 
 if __name__ == '__main__':
     os.makedirs('downloads', exist_ok=True)

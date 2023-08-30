@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Cadastro de Produto</title>
+</head>
+<body>
+    <h1>Cadastro de Produto</h1>
+    <form id="produtoForm">
+        <label for="nome">Nome do Produto:</label>
+        <input type="text" id="nome" required><br>
+
+        <label for="valor">Valor:</label>
+        <input type="number" id="valor" required><br>
+
+        <label for="categoria">Categoria:</label>
+        <input type="text" id="categoria" required><br>
+
+        <button type="button" id="cadastrarProduto">Cadastrar Produto</button>
+    </form>
+
+    <h2>Consulta de Produtos por Categoria</h2>
+    <label for="categoriaConsulta">Categoria:</label>
+    <input type="text" id="categoriaConsulta">
+    <button type="button" id="consultarPorCategoria">Consultar</button>
+
+    <div id="resultadoConsulta"></div>
+
+    <a href="#" id="exportarExcel">Exportar para Excel</a>
+
+    <script src="cadProduto.js"></script>
+</body>
+</html>

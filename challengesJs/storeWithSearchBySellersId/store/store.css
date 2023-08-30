@@ -117,6 +117,7 @@ body {
     background-color: #445335;
 }
 
+
 .result-container {
     margin-top: 20px;
     text-align: center;
@@ -195,6 +196,8 @@ body {
     background-color: #2980b9;
 }
 
+/* ... (seu código CSS anterior) ... */
+
 #categoryQuery,
 #matriculaQuery {
     border: 1px solid #000;
@@ -216,44 +219,4 @@ body {
 #matriculaQuery + button:hover {
     background-color: #000;
     color: #fff;
-}
-
-.result-container button.download-button {
-    background-color: #3498db;
-    color: #fff;
-    border: none;
-    cursor: pointer;
-    border-radius: 3px;
-    font-size: 14px;
-    transition: background-color 0.3s ease;
-    width: auto;
-    padding: 8px 20px;
-}
-
-.result-container button.download-button:hover {
-    background-color: #2980b9;
-}
-
-.result-container button.generate-button {
-    background-color: #e67e22;
-    color: #fff;
-    border: none;
-    cursor: pointer;
-    border-radius: 3px;
-    font-size: 14px;
-    transition: background-color 0.3s ease;
-    width: auto;
-    padding: 8px 20px;
-}
-
-.result-container button.generate-button:hover {
-    background-color: #d35400;
-}
-
-.form-container input[type="date"] {
-    width: 100%;
-    padding: 8px;
-    border: 1px solid #ccc;
-    border-radius: 3px;
-    box-sizing: border-box;
 }

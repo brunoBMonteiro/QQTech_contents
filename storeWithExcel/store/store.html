@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="store.css">
+    <title>Quero Quero</title>
+</head>
+
+<body>
+    <div class="background-image"></div>
+    <div class="container">
+        <button onclick="showForm('cliente')">Cadastrar Cliente</button>
+        <button onclick="showForm('vendedor')">Cadastrar Vendedor</button>
+        <button onclick="showForm('produto')">Cadastrar Produto</button>
+        <input type="text" id="categoryQuery" placeholder="Buscar por Categoria">
+        <button onclick="queryProducts()">Buscar</button>
+        <input type="text" id="matriculaQuery" placeholder="Buscar por Matrícula">
+        <button onclick="querySellersByMatricula()">Buscar</button>
+        <button onclick="showClientsList()">Ver Clientes</button>
+        <button onclick="showSellersList()">Ver Vendedores</button>
+        <button onclick="showProductsList()">Ver Produtos</button>
+    </div>
+
+    <div class="cliente-form form-container" id="form-container">
+        <!-- Formulário de Cadastro de Cliente -->
+    </div>
+
+    <div class="vendedor-form form-container" id="form-container">
+        <!-- Formulário de Cadastro de Vendedor -->
+    </div>
+
+    <div class="produto-form form-container" id="form-container">
+        <!-- Formulário de Cadastro de Produto -->
+    </div>
+
+    <div class="result-container">
+        <div id="result"></div>
+        <div id="matriculaResult"></div>
+    </div>
+
+    <script src="store.js"></script>
+</body>
+
+</html>

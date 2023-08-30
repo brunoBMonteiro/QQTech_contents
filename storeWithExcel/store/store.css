@@ -8,7 +8,7 @@ body {
     justify-content: center;
     align-items: center;
     overflow: hidden;
-  }
+}
 
 .background-image {
     position: fixed;
@@ -20,9 +20,9 @@ body {
     background-size: cover;
     filter: blur(1px);
     z-index: -1;
-  }
+}
 
-  .container {
+.container {
     max-width: initial;
     margin: 0 auto;
     padding: 20px;
@@ -84,10 +84,16 @@ body {
     width: 300px;
     position: fixed;
     top: 50%;
-    left: 50%;
+    left: 30%; 
     transform: translate(-50%, -50%);
     z-index: 1;
     text-align: center;
+}
+
+.form-container.right-aligned {
+    left: auto;
+    right: 50px; 
+    transform: none;
 }
 
 .form-container input,
@@ -216,44 +222,4 @@ body {
 #matriculaQuery + button:hover {
     background-color: #000;
     color: #fff;
-}
-
-.result-container button.download-button {
-    background-color: #3498db;
-    color: #fff;
-    border: none;
-    cursor: pointer;
-    border-radius: 3px;
-    font-size: 14px;
-    transition: background-color 0.3s ease;
-    width: auto;
-    padding: 8px 20px;
-}
-
-.result-container button.download-button:hover {
-    background-color: #2980b9;
-}
-
-.result-container button.generate-button {
-    background-color: #e67e22;
-    color: #fff;
-    border: none;
-    cursor: pointer;
-    border-radius: 3px;
-    font-size: 14px;
-    transition: background-color 0.3s ease;
-    width: auto;
-    padding: 8px 20px;
-}
-
-.result-container button.generate-button:hover {
-    background-color: #d35400;
-}
-
-.form-container input[type="date"] {
-    width: 100%;
-    padding: 8px;
-    border: 1px solid #ccc;
-    border-radius: 3px;
-    box-sizing: border-box;
 }
