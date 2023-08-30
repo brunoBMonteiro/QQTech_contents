@@ -8,7 +8,7 @@ let productsListVisible = false;
 let isFormVisible = false; 
 
 function showForm(formType) {
-    const formContainer = document.getElementById('form-container');
+    const formContainer = document.getElementById(`${formType}-form-container`);
     const resultContainer = document.getElementById('result');
     
     if (!isFormVisible || formContainer.dataset.formType !== formType) {
@@ -68,13 +68,21 @@ function addClient() {
     const origin = document.getElementById('clientOrigin').value;
     const score = parseFloat(document.getElementById('clientScore').value);
 
-    clients.push({
+    const newClient = {
         name: name,
         date: date,
         cpf: cpf,
         origin: origin,
         score: score
-    });
+    };
+
+    clients.push(newClient);
+
+    // Atualizar o arquivo JSON no localStorage
+    saveDataToJson();
+
+    // Gerar arquivo XLSX
+    createAndDownloadXLSX();
 
     cleanClientContent();
 
@@ -155,15 +163,22 @@ function addSeller() {
     const name = document.getElementById('sellerName').value;
     const matricula = document.getElementById('sellerMatricula').value;
 
-    sellers.push({
+    const newSeller = {
         name: name,
         matricula: matricula
-    });
+    };
+
+    sellers.push(newSeller);
+
+    // Atualizar o arquivo JSON no localStorage
+    saveDataToJson();
+
+    // Gerar arquivo XLSX
+    createAndDownloadXLSX();
 
     cleanSellerContent();
 
     displayResult('Vendedor cadastrado com sucesso!');
-    showSellersList();
 }
 
 function cleanSellerContent() {
@@ -250,11 +265,19 @@ function addProduct() {
     const value = parseFloat(document.getElementById('productValue').value);
     const category = document.getElementById('productCategory').value;
 
-    products.push({
+    const newProduct = {
         name: name,
         value: value,
         category: category
-    });
+    };
+
+    products.push(newProduct);
+
+    // Atualizar o arquivo JSON no localStorage
+    saveDataToJson();
+
+    // Gerar arquivo XLSX
+    createAndDownloadXLSX();
 
     cleanProductContent();
 
@@ -348,6 +371,42 @@ function queryProducts() {
     }
 
     document.getElementById('categoryQuery').value = '';
+}
+
+function saveDataToJson() {
+    const jsonData = JSON.stringify({ clients, sellers, products });
+    localStorage.setItem('data', jsonData);
+}
+
+function createAndDownloadXLSX() {
+    const jsonData = localStorage.getItem('data');
+    const data = JSON.parse(jsonData);
+
+    const worksheet = XLSX.utils.json_to_sheet(data.clients.concat(data.sellers, data.products));
+    const workbook = XLSX.utils.book_new();
+    XLSX.utils.book_append_sheet(workbook, worksheet, 'Data');
+
+    const blob = new Blob([XLSX.write(workbook, { bookType: 'xlsx', type: 'array' })], {
+        type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'
+    });
+
+    const url = URL.createObjectURL(blob);
+
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = 'data.xlsx';
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+}
+
+function s2ab(s) {
+    const buf = new ArrayBuffer(s.length);
+    const view = new Uint8Array(buf);
+    for (let i = 0; i !== s.length; ++i) {
+        view[i] = s.charCodeAt(i) & 0xFF;
+    }
+    return buf;
 }
 
 function displayResult(message) {
